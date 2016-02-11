@@ -1,0 +1,60 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Clientes</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="cliente_busca" id="cliente_busca" class="form-control" placeholder="Pesquisar clientes" />
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Novo Cliente</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <?php if ($this->clientes->getCurrentItemCount() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>E-mail</th>
+                            <th>Nome Contato</th>
+                            <th>Telefone</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->clientes as $cliente) : ?>
+                        <tr>
+                            <td><?php echo $cliente['cliente_empresa']; ?></td>
+                            <td><?php echo $cliente['cliente_email']; ?></td>
+                            <td><?php echo $cliente['cliente_nome']; ?></td>
+                            <td><?php echo $cliente['cliente_telefone']; ?></td>
+                            <td><?php echo $cliente['cliente_cidade']; ?></td>
+                            <td><?php echo $cliente['cliente_estado']; ?></td>
+                            <td></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>                    
+                </table>
+                <?php echo $this->paginationControl($this->clientes, 'Sliding', 'partials/pagination.phtml'); ?>
+            </div>
+            <?php else : ?>
+            <div class="alert alert-warning">Nenhum cliente cadastrado</div>            
+            <?php endif; ?>
+        </div>
+    </div>
+    
+</section>

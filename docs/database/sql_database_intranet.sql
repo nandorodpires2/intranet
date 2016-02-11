@@ -11,7 +11,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Copiando estrutura para tabela stylesheets_intranet.cliente
-DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `cliente_id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_nome` varchar(200) DEFAULT NULL,
@@ -21,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   PRIMARY KEY (`cliente_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela stylesheets_intranet.cliente: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.cliente: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`cliente_id`, `cliente_nome`, `cliente_email`, `cliente_telefone`, `cliente_celular`) VALUES
 	(1, 'Edno', 'edno.mari@gmail.com', NULL, '(31)98615-8716');
@@ -29,7 +28,6 @@ INSERT INTO `cliente` (`cliente_id`, `cliente_nome`, `cliente_email`, `cliente_t
 
 
 -- Copiando estrutura para tabela stylesheets_intranet.proposta
-DROP TABLE IF EXISTS `proposta`;
 CREATE TABLE IF NOT EXISTS `proposta` (
   `proposta_id` int(11) NOT NULL AUTO_INCREMENT,
   `proposta_numero` varchar(45) DEFAULT NULL,
