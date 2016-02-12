@@ -14,10 +14,15 @@
 class Site_ClienteController extends Zend_Controller_Action {
     
     public function init() {
-        
+        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/cliente/cadastro.js')); 
     }
     
     public function indexAction() {
+        
+        // form cliente cadastro
+        $formClienteCadastro = new Form_Site_ClienteCadastro();
+        $formClienteCadastro->submit->setLabel("CADASTRAR");
+        $this->view->formClienteCadastro = $formClienteCadastro;
         
         $page = $this->getRequest()->getParam('page',1); //get curent page param, default 1 if param not available.
         $key = $this->getRequest()->getParam("cliente_busca", null);
@@ -34,6 +39,33 @@ class Site_ClienteController extends Zend_Controller_Action {
         //Zend_View_Helper_PaginationControl::setDefaultViewPartial('partials/pagination.phtml');
         
         $this->view->clientes = $paginator;        
+        
+    }
+    
+    public function cadastroAction() {
+        
+        // form cliente cadastro
+        $formClienteCadastro = new Form_Site_ClienteCadastro();
+        $formClienteCadastro->submit->setLabel("CADASTRAR");
+        $this->view->formClienteCadastro = $formClienteCadastro;
+        
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            
+            if ($formClienteCadastro->isValid($data)) {
+                $data = $formClienteCadastro->getValues();
+                
+                try {
+                    $modelCliente = new Model_DbTable_Cliente();
+                    $modelCliente->insert($data);
+                    $this->_redirect("cliente/");
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
+                
+            } 
+            
+        }
         
     }
     
