@@ -24,6 +24,10 @@ class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
         
         return $select;
     }
+    
+    public function getQuery() {
+        return $this->getQueryAll();
+    }
 
     public function getById($id) {
         $primary = is_array($this->_primary) ? $this->_primary[1] : $this->_primary;

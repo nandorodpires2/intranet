@@ -1,0 +1,69 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Propostas</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="proposta_busca" id="proposta_busca" class="form-control" placeholder="Pesquisar propostas" />
+                </div>
+            </form>
+        </div>
+        
+        <!-- NOVO CLIENTE MODAL -->
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-proposta-cadastro"><i class="fa fa-plus"></i> Nova Proposta</a>
+        </div>
+        <div class="modal fade" id="modal-proposta-cadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Nova Proposta</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php //echo $this->partial('proposta/form-proposta-cadastro.phtml', array("formPropostaCadastro" => $this->formPropostaCadastro)); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM NOVO CLIENTE -->
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <?php if ($this->propostas->getCurrentItemCount() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Cliente</th>
+                            <th>Cliente</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->propostas as $proposta) : ?>
+                        <tr>
+                            <td><?php echo $proposta['proposta_numero']; ?></td>
+                            <td><?php echo $proposta['cliente_id']; ?></td>
+                            <td></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>                    
+                </table>
+                <?php echo $this->paginationControl($this->propostas, 'Sliding', 'partials/pagination.phtml'); ?>
+            </div>
+            <?php else : ?>
+            <div class="alert alert-warning">Nenhuma proposta cadastrado</div>            
+            <?php endif; ?>
+        </div>
+    </div>
+    
+</section>
