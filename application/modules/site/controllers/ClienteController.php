@@ -69,4 +69,20 @@ class Site_ClienteController extends Zend_Controller_Action {
         
     }
     
+    /**
+     * Detalhes do cadastro e acoes para os registros
+     */
+    public function detalhesAction() {
+        
+        $cliente_id = $this->getRequest()->getParam("cliente");
+        
+        /**
+         * Busca os dados do cliente
+         */
+        $modelCliente = new Model_DbTable_Cliente();
+        $cliente = $modelCliente->getById($cliente_id);
+        $this->view->cliente = $cliente;
+        
+    }
+    
 }

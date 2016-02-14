@@ -42,9 +42,8 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Empresa</th>
+                            <th>Empresa/Contato</th>
                             <th>E-mail</th>
-                            <th>Nome Contato</th>
                             <th>Telefone</th>
                             <th>Cidade</th>
                             <th>Estado</th>
@@ -54,16 +53,16 @@
                     <tbody>
                         <?php foreach ($this->clientes as $cliente) : ?>
                         <tr>
-                            <td><?php echo $cliente['cliente_empresa']; ?></td>
+                            <td><?php echo $cliente['cliente_empresa'] . '/' . $cliente['cliente_nome']; ?></td>
                             <td><?php echo $cliente['cliente_email']; ?></td>
-                            <td><?php echo $cliente['cliente_nome']; ?></td>
                             <td><?php echo $cliente['cliente_telefone']; ?></td>
                             <td><?php echo $cliente['cliente_cidade']; ?></td>
                             <td><?php echo $cliente['cliente_estado']; ?></td>
                             <td>
                                 <a href="<?php echo $this->url(array(
                                     'controller' => 'cliente',
-                                    'action' => 'detalhes'
+                                    'action' => 'detalhes',
+                                    'cliente' => $cliente['cliente_id']
                                 ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
                             </td>
                         </tr>

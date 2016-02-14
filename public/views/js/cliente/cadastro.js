@@ -5,6 +5,19 @@
  */
 $(document).ready(function(){
     
+    $("input[type=radio]").change(function(){
+        var value = $(this).val();
+        
+        if (value === 'PF') {
+            $("#cliente_empresa").attr("disabled", true);
+            $("#cliente_nome").focus();
+        } else {
+            $("#cliente_empresa").attr("disabled", false);
+            $("#cliente_empresa").focus();
+        }
+        
+    });
     
 });
-
+        
+        

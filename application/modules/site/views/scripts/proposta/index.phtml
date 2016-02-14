@@ -47,6 +47,7 @@
                             <th>Tipo</th>
                             <th>Horas Total</th>
                             <th class="text-right">Valor Total</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -66,7 +67,13 @@
                             <td><?php echo $proposta['tipo_servico_nome']; ?></td>
                             <td><?php echo $proposta['proposta_horas']; ?></td>
                             <td class="text-right"><?php echo $this->currency($proposta['proposta_valor']); ?></td>                            
-                            <td></td>
+                            <td><?php echo $proposta['proposta_status']; ?></td>
+                            <td>
+                                <a href="<?php echo $this->url(array(
+                                    'controller' => 'cliente',
+                                    'action' => 'detalhes'
+                                ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>                    
