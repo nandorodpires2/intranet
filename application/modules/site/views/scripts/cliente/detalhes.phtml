@@ -2,20 +2,97 @@
     
     <div class="row">
         <div class="col-lg-12">
-            <h3>Cliente Detalhes</h3>
+            <h3>Cliente Detalhes</h3>   
         </div>
     </div>
     
+    <!-- ACOES -->
     <div class="row">
-        <div class="col-lg-12 text-right">
+        <div class="col-lg-12 text-right">            
+            <a href="<?php echo $this->url(array(
+                'controller' => 'cliente',
+                'action' => 'editar',
+                'cliente' => $this->cliente->cliente_id
+            ), null, true); ?>" class="btn btn-sm btn-info"><i class="fa fa-edit fa-2x"></i></a>
+            <!--
+            <a href="<?php echo $this->url(array(
+                'controller' => 'cliente',
+                'action' => 'excluir',
+                'cliente' => $this->cliente->cliente_id
+            ), null, true); ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-2x"></i></a> 
+            -->
+            <?php if (!$this->cliente->cliente_acesso) : ?>
+            <a href="<?php echo $this->url(array(
+                
+            ), null, true); ?>" class="btn btn-sm btn-warning"><i class="fa fa-send fa-2x"></i></a>            
+            <?php endif; ?>
             <hr />
-            <a href="<?php echo $this->url(array(
-                
-            ), null, true); ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> Editar</a>
-            <a href="<?php echo $this->url(array(
-                
-            ), null, true); ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Excluir</a>            
+        </div>
+    </div>    
+    
+    <!-- DETALHES DO REGISTRO -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dados do Cliente</div>
+                <div class="panel-body">
+                    <p><b>Tipo: </b><?php echo $this->cliente->cliente_tipo; ?></p>
+                    <?php if ($this->cliente->cliente_empresa) : ?>
+                    <p><b>Empresa: </b><?php echo $this->cliente->cliente_empresa; ?></p>
+                    <p><b>CNPJ: </b><?php echo $this->cliente->cliente_cpf_cnpj; ?></p>
+                    <?php else : ?>
+                    <p><b>CPF: </b><?php echo $this->cliente->cliente_cpf_cnpj; ?></p>
+                    <?php endif; ?>
+                    <p><b>Contato: </b><?php echo $this->cliente->cliente_nome; ?></p>
+                    <p><b>E-mail: </b><?php echo $this->cliente->cliente_email; ?></p>
+                    <p><b>Telefone: </b><?php echo $this->cliente->cliente_telefone; ?></p>
+                    <p><b>Celular: </b><?php echo $this->cliente->cliente_celular; ?></p>
+                    <p><b>Endereco: </b>
+                        <?php echo $this->cliente->cliente_endereco ? $this->cliente->cliente_endereco : ''; ?>
+                        <?php echo $this->cliente->cliente_numero ? ', '.$this->cliente->cliente_numero : ''; ?>
+                        <?php echo $this->cliente->cliente_complemento ? ' - ' .$this->cliente->cliente_complemento: ''; ?>
+                        <?php echo $this->cliente->cliente_bairro ? ' - '.$this->cliente->cliente_bairro : ''; ?>
+                        <?php echo $this->cliente->cliente_cidade ? ' - '.$this->cliente->cliente_cidade : ''; ?>
+                        <?php echo $this->cliente->cliente_estado ? '/'.$this->cliente->cliente_estado : ''; ?>
+                    </p>
+                    <?php if ($this->cliente->cliente_acesso) : ?>                    
+                    <p><b>Último acesso: </b></p>
+                    <?php else : ?>
+                    <p><b>Último acesso: </b> Não tem acesso</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Propostas</div>
+                <div class="panel-body">
+                </div>
+            </div><div class="panel panel-default">
+                <div class="panel-heading">Projetos</div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Faturamento</div>
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Controle de Horas</div>
+                <div class="panel-body">
+                </div>
+            </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6">
+            
+        </div>
+    </div>
+    
+   
     
 </section>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Intranet::Stylesheets</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $this->baseUrl("views/css/bootstrap.min.css"); ?>" rel="stylesheet">
@@ -42,6 +42,8 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
+                <!-- Messages -->    
+                <?php echo $this->messages; ?> 
                 <?php echo $this->layout()->content; ?>                
             </div>
         </div>
@@ -55,6 +57,9 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src=<?php echo $this->baseUrl("views/js/bootstrap.min.js"); ?>></script>
+    
+    <!-- MaskedInput Core JavaScript -->
+    <script src=<?php echo $this->baseUrl("views/js/jquery.maskedinput.js"); ?>></script>
     
     <!-- Application JavaScript -->
     <script src=<?php echo $this->baseUrl("views/js/application.js"); ?>></script>
