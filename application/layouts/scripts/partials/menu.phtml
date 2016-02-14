@@ -1,7 +1,7 @@
 <?php
 
     $modelSiteMenu = new Model_DbTable_SiteMenu();
-    $menus = $modelSiteMenu->fetchAll();
+    $menus = $modelSiteMenu->fetchAll("site_menu_ativo = 1", "site_menu_ordem asc");
 
 ?>
 <!-- Sidebar -->

@@ -48,7 +48,7 @@
                             <th>Telefone</th>
                             <th>Cidade</th>
                             <th>Estado</th>
-                            <th></th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +60,12 @@
                             <td><?php echo $cliente['cliente_telefone']; ?></td>
                             <td><?php echo $cliente['cliente_cidade']; ?></td>
                             <td><?php echo $cliente['cliente_estado']; ?></td>
-                            <td></td>
+                            <td>
+                                <a href="<?php echo $this->url(array(
+                                    'controller' => 'cliente',
+                                    'action' => 'detalhes'
+                                ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>                    

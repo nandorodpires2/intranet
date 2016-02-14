@@ -43,8 +43,10 @@
                     <thead>
                         <tr>
                             <th>Número</th>
-                            <th>Cliente</th>
-                            <th>Cliente</th>
+                            <th>Empresa/Contato</th>
+                            <th>Tipo</th>
+                            <th>Horas Total</th>
+                            <th class="text-right">Valor Total</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -52,7 +54,18 @@
                         <?php foreach ($this->propostas as $proposta) : ?>
                         <tr>
                             <td><?php echo $proposta['proposta_numero']; ?></td>
-                            <td><?php echo $proposta['cliente_id']; ?></td>
+                            <td>
+                                <?php
+                                    if ($proposta['cliente_tipo'] === 'PF') {
+                                        echo $proposta['cliente_nome'];
+                                    } else {
+                                        echo $proposta['cliente_empresa'].' / '.$proposta['cliente_nome'];
+                                    }
+                                ?>
+                            </td>
+                            <td><?php echo $proposta['tipo_servico_nome']; ?></td>
+                            <td><?php echo $proposta['proposta_horas']; ?></td>
+                            <td class="text-right"><?php echo $this->currency($proposta['proposta_valor']); ?></td>                            
                             <td></td>
                         </tr>
                         <?php endforeach; ?>

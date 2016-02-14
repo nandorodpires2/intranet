@@ -15,6 +15,16 @@ class Form_Site_ClienteCadastro extends App_Forms_Form {
     
     public function init() {
         
+        // cliente_tipo
+        $cliente_tipo = new Zend_Form_Element_Radio("cliente_tipo");
+        $cliente_tipo->setLabel("Tipo: ");
+        $cliente_tipo->setRequired();
+        $cliente_tipo->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        $cliente_tipo->setMultiOptions(array(
+            'PF' => ' Pessoa Física',
+            'PJ' => ' Pessoa Jurídica'
+        ));
+        
         // cliente_empresa
         $cliente_empresa = new Zend_Form_Element_Text("cliente_empresa");
         $cliente_empresa->setLabel("Empresa:");
@@ -73,6 +83,7 @@ class Form_Site_ClienteCadastro extends App_Forms_Form {
          * Add elements
          */
         $this->addElements(array(
+            $cliente_tipo,
             $cliente_empresa,
             $cliente_nome,
             $cliente_email,
