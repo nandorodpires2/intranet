@@ -1,4 +1,9 @@
 
+/* INPUTS */
+input { 
+    border-radius: 0;
+}
+
 /* BUTTONS */
 .btn-dark {
     border-radius: 0;

@@ -66,4 +66,17 @@ class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
     
+    public function getLastInsertedId() {
+        
+        $select = $this->select()
+                ->setIntegrityCheck(false)
+                ->from('INFORMATION_SCHEMA.TABLES', 'AUTO_INCREMENT')
+                ->where("TABLE_NAME = ?", $this->_name);
+        
+        $query = $this->fetchRow($select);
+        
+        return $query->AUTO_INCREMENT;
+        
+    }
+    
 }

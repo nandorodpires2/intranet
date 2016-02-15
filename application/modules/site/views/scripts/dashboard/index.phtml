@@ -1,0 +1,60 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>Dashboard</h4>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-users"></i> Clientes</div>
+                <div class="panel-body text-right">
+                    <h4>Clientes Ativos: <?php echo $this->clientes->count(); ?></h4>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-clock-o"></i> Controle de Horas</div>
+                <div class="panel-body text-right">
+                    <h4>Total Horas trabalhadas: <?php echo $this->horas; ?></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-bookmark"></i> Projetos</div>
+                <div class="panel-body text-right">
+                    <h4>Total de Projetos:  <?php echo $this->projetos; ?></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-usd"></i> Faturamento</div>
+                <div class="panel-body text-right">
+                    <h4>Faturamento Total: <?php echo $this->currency($this->faturamento); ?></h4>
+                    <h5>A Receber: <?php echo $this->currency($this->faturamento); ?></h5>
+                    <h5>Recebido: <?php echo $this->currency($this->faturamento); ?></h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-users"></i> Propostas</div>
+                <div class="panel-body text-right">
+                    <h4>Total de Propostas:  <?php echo $this->propostas->count(); ?></h4>
+                    <h4>Horas Propostas:  <?php echo $this->total_horas_proposta; ?></h4>
+                    <h4>Valor Propostas:  <?php echo $this->currency($this->total_valor_proposta); ?></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>

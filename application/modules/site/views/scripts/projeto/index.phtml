@@ -1,0 +1,38 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Projetos</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="projeto_busca" id="projeto_busca" class="form-control" placeholder="Pesquisar projetos" />
+                </div>
+            </form>
+        </div>
+        
+        <!-- NOVO CLIENTE MODAL -->
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-projeto-cadastro"><i class="fa fa-plus"></i> Novo Projeto</a>
+        </div>
+        <div class="modal fade" id="modal-projeto-cadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Novo Projeto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php //echo $this->partial('projeto/form-projeto-cadastro.phtml', array("formProjetoCadastro" => $this->formProjetoCadastro)); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM NOVO CLIENTE -->
+    </div>
+    
+</section>

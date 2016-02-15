@@ -27,7 +27,7 @@
                         <h4 class="modal-title" id="myModalLabel">Nova Proposta</h4>
                     </div>
                     <div class="modal-body">
-                        <?php //echo $this->partial('proposta/form-proposta-cadastro.phtml', array("formPropostaCadastro" => $this->formPropostaCadastro)); ?>
+                        <?php echo $this->partial('proposta/form-proposta-cadastro.phtml', array("formPropostaCadastro" => $this->formPropostaCadastro)); ?>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                             <td><?php echo $proposta['proposta_status']; ?></td>
                             <td>
                                 <a href="<?php echo $this->url(array(
-                                    'controller' => 'cliente',
+                                    'controller' => 'proposta',
                                     'action' => 'detalhes'
                                 ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
                             </td>

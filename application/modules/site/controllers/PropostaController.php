@@ -18,6 +18,14 @@ class Site_PropostaController extends Zend_Controller_Action {
     }
     
     public function indexAction() {
+                
+        /**
+         * Form cadastro
+         */
+        $formPropostaCadastro = new Form_Site_PropostaCadastro();
+        $formPropostaCadastro->submit->setLabel("CADASTRAR");        
+        //$formPropostaCadastro->proposta_numero->setValue($this->getNumeroProposta());
+        $this->view->formPropostaCadastro = $formPropostaCadastro;
         
         /**
          * Busca as propostas
@@ -37,6 +45,74 @@ class Site_PropostaController extends Zend_Controller_Action {
         
         $this->view->propostas = $paginator;  
         
+    }
+    
+    public function cadastroAction() {
+
+        /**
+         * Form cadastro
+         */
+        $formPropostaCadastro = new Form_Site_PropostaCadastro();
+        $formPropostaCadastro->submit->setLabel("CADASTRAR");        
+        $formPropostaCadastro->proposta_numero->setValue($this->getNumeroProposta());
+        $this->view->formPropostaCadastro = $formPropostaCadastro;
+        
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            //Zend_Debug::dump($data); die();
+            if ($formPropostaCadastro->isValid($data)) {
+                
+                $data = $formPropostaCadastro->getValues();
+                
+                try {
+                    $modelProposta = new Model_DbTable_Proposta();
+                    $modelProposta->insert($data);
+                    
+                    $this->_helper->flashMessenger->addMessage(array(
+                        'success' => 'Proposta cadastrada com sucesso!'
+                    ));
+                    
+                } catch (Exception $ex) {
+                    $this->_helper->flashMessenger->addMessage(array(
+                        'danger' => $ex->getMessage()
+                    ));
+                }
+                
+                $this->_redirect("proposta/");
+            } else {
+                Zend_Debug::dump($formPropostaCadastro->getErrors()); die();
+            }
+        }
+        
+    }
+    
+    /**
+     * 
+     */
+    public function editarAction() {
+        
+    }
+    
+    /**
+     * 
+     */
+    public function detalhesAction() {
+        
+    }
+
+    private function getNumeroProposta() {
+        $proposta_numero = "";
+        
+        $ano = date("y");
+        $modelProposta = new Model_DbTable_Proposta();
+        $last_id = (int)$modelProposta->getLastInsertedId();
+        
+        // formatando
+        $last_id = str_pad(++$last_id, 3, "0", STR_PAD_LEFT);
+        
+        $proposta_numero .= $last_id.'/'.$ano;
+        
+        return $proposta_numero;
     }
     
 }
