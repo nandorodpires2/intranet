@@ -99,6 +99,29 @@ class Site_PropostaController extends Zend_Controller_Action {
     public function detalhesAction() {
         
     }
+    
+    /**
+     * 
+     */
+    public function ajaxPropostaAction() {
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        
+        $proposta_id = (int)$this->getRequest()->getParam("proposta_id");
+        
+        $modelProposta = new Model_DbTable_Proposta();
+        $proposta = $modelProposta->getById($proposta_id);
+        
+        $return = array('success' => 0);
+        if ($proposta) {
+            $return['success'] = 1;
+            $return['proposta'] = $proposta->toArray();
+        } 
+        
+        echo Zend_Json_Encoder::encode($return);
+        
+    }
 
     private function getNumeroProposta() {
         $proposta_numero = "";

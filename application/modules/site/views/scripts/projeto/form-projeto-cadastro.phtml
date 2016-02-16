@@ -1,0 +1,32 @@
+<section>
+    <form method="post" action="<?php echo $this->url(array(
+        'controller' => 'projeto',
+        'action' => 'cadastro'
+    ), null, true); ?>" id="form-projeto-cadastro" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6"><?php echo $this->formProjetoCadastro->proposta_id; ?></div>
+                <div class="col-lg-6"><?php echo $this->formProjetoCadastro->cliente_id; ?></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-12"><?php echo $this->formProjetoCadastro->projeto_nome; ?></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6"><?php echo $this->formProjetoCadastro->projeto_horas; ?></div>
+                <div class="col-lg-6"><?php echo $this->formProjetoCadastro->projeto_valor; ?></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-12"><?php echo $this->formProjetoCadastro->submit; ?></div>
+            </div>
+        </div>
+    </form>
+</section>

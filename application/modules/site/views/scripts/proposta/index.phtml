@@ -45,6 +45,7 @@
                             <th>Número</th>
                             <th>Empresa/Contato</th>
                             <th>Tipo</th>
+                            <th>Servico</th>
                             <th>Horas Total</th>
                             <th class="text-right">Valor Total</th>
                             <th>Status</th>
@@ -64,6 +65,7 @@
                                     }
                                 ?>
                             </td>
+                            <td><?php echo $proposta['proposta_tipo_nome']; ?></td>
                             <td><?php echo $proposta['tipo_servico_nome']; ?></td>
                             <td><?php echo $proposta['proposta_horas']; ?></td>
                             <td class="text-right"><?php echo $this->currency($proposta['proposta_valor']); ?></td>                            

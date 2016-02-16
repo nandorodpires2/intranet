@@ -53,9 +53,27 @@
                     <tbody>
                         <?php foreach ($this->clientes as $cliente) : ?>
                         <tr>
-                            <td><?php echo $cliente['cliente_empresa'] . '/' . $cliente['cliente_nome']; ?></td>
+                            <td>
+                                <?php
+                                    if (!$cliente['cliente_empresa']) {
+                                        echo $cliente['cliente_nome'];
+                                    } else {
+                                        echo $cliente['cliente_empresa'].' / '.$cliente['cliente_nome'];
+                                    }
+                                ?>
+                            </td>
                             <td><?php echo $cliente['cliente_email']; ?></td>
-                            <td><?php echo $cliente['cliente_telefone']; ?></td>
+                            <td>
+                                <?php
+                                    if (!$cliente['cliente_celular']) {
+                                        echo $cliente['cliente_telefone'];
+                                    } elseif ($cliente['cliente_celular'] && !$cliente['cliente_telefone']) {
+                                        echo $cliente['cliente_celular'];
+                                    } else {
+                                        echo $cliente['cliente_telefone'].' / '.$cliente['cliente_celular'];
+                                    }
+                                ?>
+                            </td>
                             <td><?php echo $cliente['cliente_cidade']; ?></td>
                             <td><?php echo $cliente['cliente_estado']; ?></td>
                             <td>

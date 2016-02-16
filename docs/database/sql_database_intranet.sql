@@ -2,12 +2,11 @@
 -- Servidor:                     127.0.0.1
 -- Versão do servidor:           5.6.17 - MySQL Community Server (GPL)
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              9.3.0.5037
+-- HeidiSQL Versão:              9.3.0.4992
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -22,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   PRIMARY KEY (`administrador_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela stylesheets_intranet.administrador: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.administrador: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
 INSERT INTO `administrador` (`administrador_id`, `administrador_email`, `administrador_senha`, `administrador_ativo`, `administrador_nome`) VALUES
 	(2, 'nandorodpires@gmail.com', 'c42e3273c1a653caac79188efa0349a9', 1, 'Fernando Rodrigues');
@@ -51,14 +50,16 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `cliente_senha` varchar(32) DEFAULT NULL,
   `cliente_acesso` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela stylesheets_intranet.cliente: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.cliente: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`cliente_id`, `cliente_tipo`, `cliente_cpf_cnpj`, `cliente_nome`, `cliente_empresa`, `cliente_email`, `cliente_telefone`, `cliente_celular`, `cliente_endereco`, `cliente_numero`, `cliente_complemento`, `cliente_bairro`, `cliente_cidade`, `cliente_estado`, `cliente_ativo`, `cliente_pre`, `cliente_senha`, `cliente_acesso`) VALUES
 	(5, 'PF', NULL, 'Edno a', '', 'edno@yahoo.com.br', '(31) 1111-2222', '(31) 9999-99999', NULL, NULL, NULL, NULL, 'Santa Luzia', 'MG', 1, 0, NULL, 0),
 	(6, 'PJ', NULL, 'Carlos Matos', 'Layout', 'contato@lyt.com.br', '', '', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0),
-	(7, 'PJ', NULL, 'José Luiz', 'Olyva Digital', 'contato@olyva.com.br', '(31) 3261-6792', '(31) 9961-21118', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0);
+	(7, 'PJ', NULL, 'José Luiz', 'Olyva Digital', 'contato@olyva.com.br', '(31) 3261-6792', '(31) 9961-21118', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0),
+	(8, 'PF', NULL, 'Valdir Moura', '', 'valdirfmoura@gmail.com ', '', '(31) 9998-53381', NULL, NULL, NULL, NULL, 'Sarzedo', 'MG', 1, 0, NULL, 0),
+	(9, 'PJ', NULL, 'Fernando Rodrigues', 'StyleSheets -Sistemas Web', 'fernando@olyva.com.br', '', '(31) 9820-10904', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 
@@ -150,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `faturamento` (
   PRIMARY KEY (`faturamento_id`),
   KEY `fk_faturamento_projeto1_idx` (`projeto_id`),
   KEY `fk_faturamento_cliente1_idx` (`cliente_id`),
-  CONSTRAINT `fk_faturamento_projeto1` FOREIGN KEY (`projeto_id`) REFERENCES `projeto` (`projeto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_faturamento_cliente1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_faturamento_cliente1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_faturamento_projeto1` FOREIGN KEY (`projeto_id`) REFERENCES `projeto` (`projeto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela stylesheets_intranet.faturamento: ~0 rows (aproximadamente)
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `projeto` (
   `projeto_id` int(11) NOT NULL AUTO_INCREMENT,
   `projeto_nome` varchar(200) NOT NULL,
   `cliente_id` int(11) NOT NULL,
-  `projeto_status` varchar(200) DEFAULT NULL,
+  `projeto_status` varchar(200) DEFAULT 'Em desenvolvimento',
   `projeto_horas` int(11) DEFAULT NULL,
   `projeto_valor` float DEFAULT NULL,
   `proposta_id` int(11) DEFAULT NULL,
@@ -186,22 +187,30 @@ DROP TABLE IF EXISTS `proposta`;
 CREATE TABLE IF NOT EXISTS `proposta` (
   `proposta_id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_servico_id` int(11) NOT NULL,
+  `proposta_tipo_id` int(11) DEFAULT NULL,
   `proposta_numero` varchar(45) DEFAULT NULL,
   `proposta_horas` int(11) DEFAULT NULL,
   `proposta_valor` float DEFAULT NULL,
-  `proposta_status` varchar(45) DEFAULT NULL,
+  `proposta_status` varchar(45) DEFAULT 'Aguardando Resposta',
   `cliente_id` int(11) NOT NULL,
+  `proposta_documento` varchar(200) DEFAULT NULL,
   `proposta_data` date NOT NULL,
   `proposta_vencimento` date NOT NULL,
   PRIMARY KEY (`proposta_id`),
   KEY `fk_proposta_cliente_idx` (`cliente_id`),
   KEY `fk_proposta_tipo_servico1` (`tipo_servico_id`),
-  CONSTRAINT `fk_proposta_tipo_servico1` FOREIGN KEY (`tipo_servico_id`) REFERENCES `tipo_servico` (`tipo_servico_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_proposta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+  KEY `proposta_tipo_id` (`proposta_tipo_id`),
+  CONSTRAINT `fk_proposta_proposta_tipo` FOREIGN KEY (`proposta_tipo_id`) REFERENCES `proposta_tipo` (`proposta_tipo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proposta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proposta_tipo_servico1` FOREIGN KEY (`tipo_servico_id`) REFERENCES `tipo_servico` (`tipo_servico_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela stylesheets_intranet.proposta: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.proposta: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `proposta` DISABLE KEYS */;
+INSERT INTO `proposta` (`proposta_id`, `tipo_servico_id`, `proposta_tipo_id`, `proposta_numero`, `proposta_horas`, `proposta_valor`, `proposta_status`, `cliente_id`, `proposta_documento`, `proposta_data`, `proposta_vencimento`) VALUES
+	(58, 6, 2, '053/16', 22, 700, 'Aguardando Resposta', 5, 'Proposta_053-16.pdf', '0000-00-00', '0000-00-00'),
+	(59, 5, 2, '054/16', 230, 7544, 'Aprovado', 6, 'Proposta_054-16.pdf', '0000-00-00', '0000-00-00'),
+	(60, 6, 1, '055/16', 30, 0, 'Aguardando Resposta', 9, NULL, '0000-00-00', '0000-00-00');
 /*!40000 ALTER TABLE `proposta` ENABLE KEYS */;
 
 
@@ -223,6 +232,23 @@ CREATE TABLE IF NOT EXISTS `proposta_modulo` (
 /*!40000 ALTER TABLE `proposta_modulo` ENABLE KEYS */;
 
 
+-- Copiando estrutura para tabela stylesheets_intranet.proposta_tipo
+DROP TABLE IF EXISTS `proposta_tipo`;
+CREATE TABLE IF NOT EXISTS `proposta_tipo` (
+  `proposta_tipo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `proposta_tipo_nome` varchar(200) DEFAULT NULL,
+  `proposta_tipo_ativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`proposta_tipo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela stylesheets_intranet.proposta_tipo: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `proposta_tipo` DISABLE KEYS */;
+INSERT INTO `proposta_tipo` (`proposta_tipo_id`, `proposta_tipo_nome`, `proposta_tipo_ativo`) VALUES
+	(1, 'Parceria', 1),
+	(2, 'Comercial', 1);
+/*!40000 ALTER TABLE `proposta_tipo` ENABLE KEYS */;
+
+
 -- Copiando estrutura para tabela stylesheets_intranet.site_menu
 DROP TABLE IF EXISTS `site_menu`;
 CREATE TABLE IF NOT EXISTS `site_menu` (
@@ -234,18 +260,19 @@ CREATE TABLE IF NOT EXISTS `site_menu` (
   `site_menu_ordem` int(11) DEFAULT NULL,
   `site_menu_ativo` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`site_menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela stylesheets_intranet.site_menu: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `site_menu` DISABLE KEYS */;
 INSERT INTO `site_menu` (`site_menu_id`, `site_menu_module`, `site_menu_controller`, `site_menu_action`, `site_menu_label`, `site_menu_ordem`, `site_menu_ativo`) VALUES
-	(1, 'site', 'dashboard', 'index', 'Dashboard', 1, 1),
-	(2, 'site', 'cliente', 'index', 'Clientes', 2, 1),
-	(3, 'site', 'proposta', 'index', 'Propostas', 3, 1),
+	(1, 'site', 'dashboard', 'index', 'Dashboard', 10, 1),
+	(2, 'site', 'cliente', 'index', 'Clientes', 20, 1),
+	(3, 'site', 'proposta', 'index', 'Propostas', 30, 1),
 	(4, 'site', 'auth', 'logout', 'SAIR', 99, 1),
-	(5, 'site', 'faturamento', 'index', 'Faturamento', 4, 1),
-	(6, 'site', 'controle-horas', 'index', 'Controle Horas', 5, 1),
-	(7, 'site', 'configuracoes', 'index', 'Configurações', 6, 1);
+	(5, 'site', 'faturamento', 'index', 'Faturamento', 50, 1),
+	(6, 'site', 'controle-horas', 'index', 'Controle Horas', 60, 1),
+	(7, 'site', 'configuracoes', 'index', 'Configurações', 70, 1),
+	(8, 'site', 'projeto', 'index', 'Projetos', 40, 1);
 /*!40000 ALTER TABLE `site_menu` ENABLE KEYS */;
 
 
