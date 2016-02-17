@@ -1,4 +1,9 @@
 
+/* TABLE */
+th, td {
+    vertical-align: middle !important;
+}
+
 /* INPUTS */
 input { 
     border-radius: 0;

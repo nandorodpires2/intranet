@@ -8,3 +8,15 @@ $(document).ready(function(){
         
 });
 
+/**
+ * 
+ * @returns {String}
+ */
+function get_base_url() {    
+    if (window.location.host === 'localhost') {
+        return "http://" + window.location.host + "/intranet/public/";
+    } else {
+        return "http://" + window.location.host + "/";
+    } 
+}
+

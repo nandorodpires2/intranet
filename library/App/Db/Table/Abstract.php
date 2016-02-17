@@ -48,8 +48,7 @@ class App_Db_Table_Abstract extends Zend_Db_Table_Abstract {
     
     public function getByField($field, $value) {
         $select = $this->getQueryAll()
-                ->where($field . " = ?", $value); 
-        echo $select->__toString();
+                ->where($field . " = ?", $value);         
         return $this->fetchRow($select);
     }
     

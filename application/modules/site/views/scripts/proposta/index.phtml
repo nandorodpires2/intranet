@@ -48,6 +48,7 @@
                             <th>Servico</th>
                             <th>Horas Total</th>
                             <th class="text-right">Valor Total</th>
+                            <th class="text-center">Vencimento</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -68,12 +69,14 @@
                             <td><?php echo $proposta['proposta_tipo_nome']; ?></td>
                             <td><?php echo $proposta['tipo_servico_nome']; ?></td>
                             <td><?php echo $proposta['proposta_horas']; ?></td>
-                            <td class="text-right"><?php echo $this->currency($proposta['proposta_valor']); ?></td>                            
+                            <td class="text-right"><?php echo $this->currency($proposta['proposta_valor']); ?></td>    
+                            <td class="text-center"><?php echo App_Helper_Date::getDate($proposta['proposta_vencimento']); ?></td>
                             <td><?php echo $proposta['proposta_status']; ?></td>
                             <td>
                                 <a href="<?php echo $this->url(array(
                                     'controller' => 'proposta',
-                                    'action' => 'detalhes'
+                                    'action' => 'detalhes',
+                                    'proposta' => $proposta['proposta_id']
                                 ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
                             </td>
                         </tr>

@@ -12,7 +12,7 @@
  * @author Fernando Rodrigues
  */
 class Site_ProjetoController extends Zend_Controller_Action {
-    
+
     public function init() {
         $this->view->headScript()->appendFile($this->view->baseUrl('views/js/projeto/cadastro.js')); 
     }
@@ -24,6 +24,25 @@ class Site_ProjetoController extends Zend_Controller_Action {
         $formProjetoCadastro = new Form_Site_ProjetoCadastro();
         $formProjetoCadastro->submit->setLabel("CADASTRAR");        
         $this->view->formProjetoCadastro = $formProjetoCadastro;
+        
+        /**
+         * Busca as projetos
+         */
+        $page = $this->getRequest()->getParam('page',1); //get curent page param, default 1 if param not available.        
+        
+        $modelProjeto = new Model_DbTable_Projeto();                
+        $data = $modelProjeto->getQuery();
+        
+        $adapter = new Zend_Paginator_Adapter_DbSelect($data); //adapter
+        $paginator = new Zend_Paginator($adapter); // setup Pagination
+        $paginator->setItemCountPerPage(Zend_Registry::get("config")->resource->rowspage); // Items perpage, in this example is 10
+        $paginator->setCurrentPageNumber($page); // current page
+        
+        //Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        //Zend_View_Helper_PaginationControl::setDefaultViewPartial('partials/pagination.phtml');
+        
+        $this->view->projetos = $paginator; 
+        
                 
     }
     
@@ -38,12 +57,12 @@ class Site_ProjetoController extends Zend_Controller_Action {
         
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
-            
-            Zend_Debug::dump($data); die();
-            
+                        
             if ($formProjetoCadastro->isValid($data)) {
-                $data = $formProjetoCadastro->getValues();
                 
+                $formProjetoCadastro->removeElement("cliente");
+                $data = $formProjetoCadastro->getValues();
+                            
                 try {
                     $modelProjeto = new Model_DbTable_Projeto();
                     $modelProjeto->insert($data);
@@ -63,5 +82,5 @@ class Site_ProjetoController extends Zend_Controller_Action {
             }
         }
     }
-    
+        
 }

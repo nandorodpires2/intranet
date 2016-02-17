@@ -47,7 +47,7 @@ class App_Helper_Date {
         return $zendDate->get(Zend_Date::TIME_SHORT);        
     }
     
-    public static function getDate($date, $format = Zend_Date::TIME_SHORT) {        
+    public static function getDate($date, $format = Zend_Date::DATE_SHORT) {        
         $zendDate = new Zend_Date($date);
         return $zendDate->get($format);        
     }

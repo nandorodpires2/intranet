@@ -35,4 +35,61 @@
         <!-- FIM NOVO CLIENTE -->
     </div>
     
+    <!-- LISTA DE PROJETOS -->
+    <div class="row">
+        <div class="col-lg-12">
+            <?php if ($this->projetos->getCurrentItemCount() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Nome</th>
+                            <th class="col-md-3">Cliente</th>   
+                            <th>Tipo</th>
+                            <th>Servico</th>
+                            <th>Horas Total</th>
+                            <th class="text-right">Valor Total</th>
+                            <th class="text-center">Vencimento</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->projetos as $projeto) : //Zend_Debug::dump($projeto); ?>
+                        <tr>
+                            <td><?php echo $projeto['projeto_nome']; ?></td>                            
+                            <td>
+                                <?php
+                                    if ($projeto['cliente_tipo'] === 'PF') {
+                                        echo $projeto['cliente_nome'];
+                                    } else {
+                                        echo $projeto['cliente_empresa'].' / '.$projeto['cliente_nome'];
+                                    }
+                                ?>
+                            </td>                        
+                            <td><?php echo $projeto['proposta_tipo_nome']; ?></td>
+                            <td><?php echo $projeto['tipo_servico_nome']; ?></td>
+                            <td><?php echo $projeto['proposta_horas']; ?></td>
+                            <td class="text-right"><?php echo $this->currency($projeto['proposta_valor']); ?></td>    
+                            <td class="text-center"><?php echo App_Helper_Date::getDate($projeto['proposta_vencimento']); ?></td>
+                            <td><?php echo $projeto['proposta_status']; ?></td>
+                            <td>
+                                <a href="<?php echo $this->url(array(
+                                    'controller' => 'projeto',
+                                    'action' => 'detalhes',
+                                    'projeto' => $projeto['projeto_id']
+                                ), null,true); ?>"><i class="fa fa-ellipsis-v"></i> Ver</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>                    
+                </table>
+                <?php echo $this->paginationControl($this->projetos, 'Sliding', 'partials/pagination.phtml'); ?>
+            </div>
+            <?php else : ?>
+            <div class="alert alert-warning">Nenhuma projeto cadastrado</div>            
+            <?php endif; ?>
+        </div>
+    </div>
+    
 </section>

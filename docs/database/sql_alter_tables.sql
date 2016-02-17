@@ -7,3 +7,7 @@ ALTER TABLE `proposta`
 	
 ALTER TABLE `projeto`
 	CHANGE COLUMN `projeto_status` `projeto_status` VARCHAR(200) NULL DEFAULT 'Em desenvolvimento' AFTER `cliente_id`;
+	
+ALTER TABLE `projeto`
+	ADD COLUMN `projeto_controle_horas` INT(11) NULL DEFAULT NULL AFTER `proposta_id`,
+	ADD INDEX `projeto_controle_horas` (`projeto_controle_horas`);

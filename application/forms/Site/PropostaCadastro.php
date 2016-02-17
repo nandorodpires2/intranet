@@ -22,6 +22,16 @@ class Form_Site_PropostaCadastro extends App_Forms_Form {
             'class' => 'form-control',
         ));
         
+        // proposta_tipo_id
+        $proposta_tipo_id = new Zend_Form_Element_Select("proposta_tipo_id");
+        $proposta_tipo_id->setLabel("Tipo Proposta: ");
+        $proposta_tipo_id->setAttribs(array(
+            'class' => 'form-control'
+        ));
+        $proposta_tipo_id->setRequired();
+        $proposta_tipo_id->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        $proposta_tipo_id->setMultiOptions($this->getPropostaTipo());
+        
         // cliente_id
         $cliente_id = new Zend_Form_Element_Select("cliente_id");
         $cliente_id->setLabel("Cliente: ");
@@ -34,7 +44,7 @@ class Form_Site_PropostaCadastro extends App_Forms_Form {
         
         // tipo_servico_id
         $tipo_servico_id = new Zend_Form_Element_Select("tipo_servico_id");
-        $tipo_servico_id->setLabel("Tipo: ");
+        $tipo_servico_id->setLabel("Tipo de Serviço: ");
         $tipo_servico_id->setAttribs(array(
             'class' => 'form-control'
         ));
@@ -53,6 +63,20 @@ class Form_Site_PropostaCadastro extends App_Forms_Form {
         $proposta_valor = new Zend_Form_Element_Text("proposta_valor");
         $proposta_valor->setLabel("Valor: ");
         $proposta_valor->setAttribs(array(
+            'class' => 'form-control'
+        ));
+        
+        // proposta_data
+        $proposta_data = new Zend_Form_Element_Text("proposta_data");
+        $proposta_data->setLabel("Data: ");
+        $proposta_data->setAttribs(array(
+            'class' => 'form-control'
+        ));
+        
+        // proposta_vencimento
+        $proposta_vencimento = new Zend_Form_Element_Text("proposta_vencimento");
+        $proposta_vencimento->setLabel("Vencimento: ");
+        $proposta_vencimento->setAttribs(array(
             'class' => 'form-control'
         ));
         
@@ -75,9 +99,12 @@ class Form_Site_PropostaCadastro extends App_Forms_Form {
         $this->addElements(array(
             $proposta_numero,
             $cliente_id,
+            $proposta_tipo_id,
             $tipo_servico_id,
             $proposta_horas,
             $proposta_valor,
+            $proposta_data,
+            $proposta_vencimento,
             $proposta_documento
         ));
         
@@ -105,6 +132,19 @@ class Form_Site_PropostaCadastro extends App_Forms_Form {
         
         foreach ($tipos as $tipo) {
             $options[$tipo->tipo_servico_id] = $tipo->tipo_servico_nome;
+        }
+        
+        return $options;
+    }
+    
+    private function getPropostaTipo() {
+        $options = array("" => "Selecione...");
+        
+        $modelPropostaTipo = new Model_DbTable_PropostaTipo();
+        $tipos = $modelPropostaTipo->fetchAll();
+        
+        foreach ($tipos as $tipo) {
+            $options[$tipo->proposta_tipo_id] = $tipo->proposta_tipo_nome;
         }
         
         return $options;

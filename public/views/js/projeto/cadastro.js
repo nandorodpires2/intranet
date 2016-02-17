@@ -24,19 +24,22 @@ $(document).ready(function(){
 
 function enable(flag) {
     if (flag) {
-        $("#cliente_id").attr("disabled", false);
+        $("#cliente").attr("disabled", false);
         $("#projeto_horas").attr("readonly", false);
         $("#projeto_valor").attr("readonly", false);
     } else {
-        $("#cliente_id").attr("disabled", true);
+        $("#cliente").attr("disabled", true);
         $("#projeto_horas").attr("readonly", true);
         $("#projeto_valor").attr("readonly", true);
     }
 }
 
 function getProposta(id) {
+    
+    var base_url = get_base_url();
+    
     $.ajax({
-        url: "proposta/ajax-proposta",
+        url: base_url + "proposta/ajax-proposta",
         type: "get",
         data: {
             proposta_id: id            
@@ -47,7 +50,10 @@ function getProposta(id) {
         },
         success: function(data) {      
             if (data.success) {
+                
+                $("#cliente").val(data.proposta.cliente_id);
                 $("#cliente_id").val(data.proposta.cliente_id);
+                                
                 $("#projeto_horas").val(data.proposta.proposta_horas);
                 $("#projeto_valor").val(data.proposta.proposta_valor);
                 $("#projeto_nome").focus();

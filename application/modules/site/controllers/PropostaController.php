@@ -14,7 +14,9 @@
 class Site_PropostaController extends Zend_Controller_Action {
     
     public function init() {
-        
+        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/proposta/cadastro.js')); 
+        // atualiza os status das propostas
+        $this->atualizaStatus();
     }
     
     public function indexAction() {
@@ -37,7 +39,7 @@ class Site_PropostaController extends Zend_Controller_Action {
         
         $adapter = new Zend_Paginator_Adapter_DbSelect($data); //adapter
         $paginator = new Zend_Paginator($adapter); // setup Pagination
-        $paginator->setItemCountPerPage(50); // Items perpage, in this example is 10
+        $paginator->setItemCountPerPage(Zend_Registry::get("config")->resource->rowspage); // Items perpage, in this example is 10
         $paginator->setCurrentPageNumber($page); // current page
         
         //Zend_Paginator::setDefaultScrollingStyle('Sliding');
@@ -123,6 +125,10 @@ class Site_PropostaController extends Zend_Controller_Action {
         
     }
 
+    /**
+     * 
+     * @return string
+     */
     private function getNumeroProposta() {
         $proposta_numero = "";
         
@@ -136,6 +142,30 @@ class Site_PropostaController extends Zend_Controller_Action {
         $proposta_numero .= $last_id.'/'.$ano;
         
         return $proposta_numero;
+    }
+    
+    private function atualizaStatus() {
+        $modelProposta = new Model_DbTable_Proposta();                
+        $propostas = $modelProposta->fetchAll();
+        
+        $zendDateNow = new Zend_date();
+        
+        foreach ($propostas as $proposta) {
+            $zendDateVencimento = new Zend_Date($proposta->proposta_vencimento);
+            
+            if ($zendDateVencimento->isEarlier($zendDateNow)) {                
+                // atualiza o status
+                $update = array('proposta_status' => 'Vencida');
+                try {
+                    $modelProposta->updateById($update, $proposta->proposta_id);
+                } catch (Exception $ex) {
+                    continue;
+                }
+                
+            }
+            
+        }        
+        
     }
     
 }

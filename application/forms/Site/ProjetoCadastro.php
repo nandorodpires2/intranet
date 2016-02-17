@@ -23,16 +23,19 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
         ));
         $proposta_id->setMultiOptions($this->getPropostas());
         
-        // cliente_id
-        $cliente_id = new Zend_Form_Element_Select("cliente_id");
-        $cliente_id->setLabel("Cliente: ");
-        $cliente_id->setAttribs(array(
+        // cliente
+        $cliente = new Zend_Form_Element_Select("cliente");
+        $cliente->setLabel("Cliente: ");
+        $cliente->setAttribs(array(
             'class' => 'form-control',
             'disabled' => true
         ));
-        $cliente_id->setRequired();
-        $cliente_id->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
-        $cliente_id->setMultiOptions($this->getClientes());
+        $cliente->setRequired(false);
+        $cliente->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        $cliente->setMultiOptions($this->getClientes());
+        
+        // cliente_id
+        $cliente_id = new Zend_Form_Element_Hidden("cliente_id");
         
         // projeto_nome        
         $projeto_nome = new Zend_Form_Element_Text("projeto_nome");
@@ -67,7 +70,8 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
          * Add Elements
          */
         $this->addElements(array(
-            $proposta_id,              
+            $proposta_id,    
+            $cliente,
             $cliente_id,
             $projeto_nome,
             $projeto_horas,
@@ -101,7 +105,7 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
         );
         
         $modelProposta = new Model_DbTable_Proposta();
-        $propostas = $modelProposta->getPropostasByStatus("Aprovado");
+        $propostas = $modelProposta->getPropostasByStatus("Aprovada");
         
         foreach ($propostas as $proposta) {
             $options[$proposta->proposta_id] = $proposta->proposta_numero;
