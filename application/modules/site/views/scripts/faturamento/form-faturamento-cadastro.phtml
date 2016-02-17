@@ -1,0 +1,30 @@
+<section>
+    <form method="post" action="<?php echo $this->url(array(
+        'controller' => 'faturamento',
+        'action' => 'cadastro'
+    ), null, true); ?>" id="form-faturamento-cadastro" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6"><?php echo $this->formFaturamentoCadastro->projeto_id; ?></div>
+                <div class="col-lg-6"><?php echo $this->formFaturamentoCadastro->cliente; ?></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6"><?php echo $this->formFaturamentoCadastro->faturamento_valor; ?></div>
+                <div class="col-lg-6"><?php echo $this->formFaturamentoCadastro->faturamento_num_boleto; ?></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-12"><?php echo $this->formFaturamentoCadastro->faturamento_descricao; ?></div>              
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-12"><?php echo $this->formFaturamentoCadastro->submit; ?></div>
+            </div>
+        </div>
+        <?php echo $this->formFaturamentoCadastro->cliente_id; ?>
+    </form>
+</section>

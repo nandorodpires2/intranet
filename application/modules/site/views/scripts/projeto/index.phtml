@@ -43,13 +43,12 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="col-md-3">Nome</th>
-                            <th class="col-md-3">Cliente</th>   
+                            <th>Nome</th>
+                            <th>Cliente</th>   
                             <th>Tipo</th>
                             <th>Servico</th>
-                            <th>Horas Total</th>
-                            <th class="text-right">Valor Total</th>
-                            <th class="text-center">Vencimento</th>
+                            <th>Horas</th>
+                            <th class="text-right">Valor</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -69,10 +68,9 @@
                             </td>                        
                             <td><?php echo $projeto['proposta_tipo_nome']; ?></td>
                             <td><?php echo $projeto['tipo_servico_nome']; ?></td>
-                            <td><?php echo $projeto['proposta_horas']; ?></td>
-                            <td class="text-right"><?php echo $this->currency($projeto['proposta_valor']); ?></td>    
-                            <td class="text-center"><?php echo App_Helper_Date::getDate($projeto['proposta_vencimento']); ?></td>
-                            <td><?php echo $projeto['proposta_status']; ?></td>
+                            <td><?php echo $projeto['projeto_horas']; ?></td>
+                            <td class="text-right"><?php echo $this->currency($projeto['projeto_valor']); ?></td>    
+                            <td><?php echo $projeto['projeto_status']; ?></td>
                             <td>
                                 <a href="<?php echo $this->url(array(
                                     'controller' => 'projeto',

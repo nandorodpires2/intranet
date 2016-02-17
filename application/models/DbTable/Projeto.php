@@ -30,6 +30,14 @@ class Model_DbTable_Projeto extends App_Db_Table_Abstract {
             "proposta_numero"
         ));
         
+        $select->joinLeft(array("proposta_tipo"), "proposta.proposta_tipo_id = proposta_tipo.proposta_tipo_id", array(
+            "proposta_tipo_nome"
+        ));
+        
+        $select->joinLeft(array("tipo_servico"), "proposta.tipo_servico_id = tipo_servico.tipo_servico_id", array(
+            "tipo_servico_nome"
+        ));
+        
         return $select;
     }
     

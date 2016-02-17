@@ -50,16 +50,17 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `cliente_senha` varchar(32) DEFAULT NULL,
   `cliente_acesso` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela stylesheets_intranet.cliente: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`cliente_id`, `cliente_tipo`, `cliente_cpf_cnpj`, `cliente_nome`, `cliente_empresa`, `cliente_email`, `cliente_telefone`, `cliente_celular`, `cliente_endereco`, `cliente_numero`, `cliente_complemento`, `cliente_bairro`, `cliente_cidade`, `cliente_estado`, `cliente_ativo`, `cliente_pre`, `cliente_senha`, `cliente_acesso`) VALUES
-	(5, 'PF', NULL, 'Edno a', '', 'edno@yahoo.com.br', '(31) 1111-2222', '(31) 9999-99999', NULL, NULL, NULL, NULL, 'Santa Luzia', 'MG', 1, 0, NULL, 0),
+	(5, 'PF', NULL, 'Edno ', '', 'edno@yahoo.com.br', '(31) 1111-2222', '(31) 9999-99999', NULL, NULL, NULL, NULL, 'Santa Luzia', 'MG', 1, 0, NULL, 0),
 	(6, 'PJ', NULL, 'Carlos Matos', 'Layout', 'contato@lyt.com.br', '', '', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0),
 	(7, 'PJ', NULL, 'José Luiz', 'Olyva Digital', 'contato@olyva.com.br', '(31) 3261-6792', '(31) 9961-21118', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0),
 	(8, 'PF', NULL, 'Valdir Moura', '', 'valdirfmoura@gmail.com ', '', '(31) 9998-53381', NULL, NULL, NULL, NULL, 'Sarzedo', 'MG', 1, 0, NULL, 0),
-	(9, 'PJ', NULL, 'Fernando Rodrigues', 'StyleSheets -Sistemas Web', 'fernando@olyva.com.br', '', '(31) 9820-10904', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0);
+	(9, 'PJ', NULL, 'Fernando Rodrigues', 'StyleSheets -Sistemas Web', 'fernando@olyva.com.br', '', '(31) 9820-10904', NULL, NULL, NULL, NULL, 'Belo Horizonte', 'MG', 1, 0, NULL, 0),
+	(10, 'PF', NULL, 'Ermilon Junior', NULL, 'ermilonjr@gmail.com', '', '', NULL, NULL, NULL, NULL, 'Santa Luzia', 'MG', 1, 0, NULL, 0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 
@@ -88,10 +89,22 @@ CREATE TABLE IF NOT EXISTS `controle_horas` (
   PRIMARY KEY (`controle_horas_id`),
   KEY `fk_controle_horas_projeto1_idx` (`projeto_id`),
   CONSTRAINT `fk_controle_horas_projeto1` FOREIGN KEY (`projeto_id`) REFERENCES `projeto` (`projeto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela stylesheets_intranet.controle_horas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `controle_horas` DISABLE KEYS */;
+INSERT INTO `controle_horas` (`controle_horas_id`, `controle_horas_data_inicio`, `controle_horas_data_fim`, `projeto_id`) VALUES
+	(2, '2016-02-17 16:04:21', '2016-02-17 16:04:40', 1),
+	(3, '2016-02-17 16:04:54', '2016-02-17 22:18:17', 1),
+	(4, '2016-02-17 17:34:52', '2016-02-18 02:43:53', 1),
+	(5, '2016-02-17 17:44:44', '2016-02-17 17:56:01', 1),
+	(6, '2016-02-17 17:56:06', '2016-02-17 20:57:03', 2),
+	(7, '2016-02-18 08:58:05', '2016-02-18 16:58:08', 2),
+	(8, '2016-02-17 18:06:07', '2016-02-17 18:15:47', 1),
+	(9, '2016-02-17 18:06:12', '2016-02-17 18:16:17', 2),
+	(10, '2016-02-17 18:48:57', '2016-02-17 19:02:53', 2),
+	(11, '2016-02-17 18:49:29', '2016-02-17 18:49:36', 1),
+	(12, '2016-02-17 18:50:00', '2016-02-17 19:02:49', 1);
 /*!40000 ALTER TABLE `controle_horas` ENABLE KEYS */;
 
 
@@ -170,15 +183,20 @@ CREATE TABLE IF NOT EXISTS `projeto` (
   `projeto_horas` int(11) DEFAULT NULL,
   `projeto_valor` float DEFAULT NULL,
   `proposta_id` int(11) DEFAULT NULL,
+  `projeto_controle_horas` int(11) DEFAULT NULL,
   PRIMARY KEY (`projeto_id`),
   KEY `fk_projeto_cliente1_idx` (`cliente_id`),
   KEY `fk_projeto_proposta1_idx` (`proposta_id`),
+  KEY `projeto_controle_horas` (`projeto_controle_horas`),
   CONSTRAINT `fk_projeto_cliente1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_projeto_proposta1` FOREIGN KEY (`proposta_id`) REFERENCES `proposta` (`proposta_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela stylesheets_intranet.projeto: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.projeto: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `projeto` DISABLE KEYS */;
+INSERT INTO `projeto` (`projeto_id`, `projeto_nome`, `cliente_id`, `projeto_status`, `projeto_horas`, `projeto_valor`, `proposta_id`, `projeto_controle_horas`) VALUES
+	(1, 'MediaBus e BackBus', 6, 'Pausado', 230, 7544, 54, 1),
+	(2, 'Site Banda Milon & Tchelo', 10, 'Pausado', 50, 0, 55, 1);
 /*!40000 ALTER TABLE `projeto` ENABLE KEYS */;
 
 
@@ -203,14 +221,14 @@ CREATE TABLE IF NOT EXISTS `proposta` (
   CONSTRAINT `fk_proposta_proposta_tipo` FOREIGN KEY (`proposta_tipo_id`) REFERENCES `proposta_tipo` (`proposta_tipo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proposta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proposta_tipo_servico1` FOREIGN KEY (`tipo_servico_id`) REFERENCES `tipo_servico` (`tipo_servico_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela stylesheets_intranet.proposta: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela stylesheets_intranet.proposta: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `proposta` DISABLE KEYS */;
 INSERT INTO `proposta` (`proposta_id`, `tipo_servico_id`, `proposta_tipo_id`, `proposta_numero`, `proposta_horas`, `proposta_valor`, `proposta_status`, `cliente_id`, `proposta_documento`, `proposta_data`, `proposta_vencimento`) VALUES
-	(58, 6, 2, '053/16', 22, 700, 'Aguardando Resposta', 5, 'Proposta_053-16.pdf', '0000-00-00', '0000-00-00'),
-	(59, 5, 2, '054/16', 230, 7544, 'Aprovado', 6, 'Proposta_054-16.pdf', '0000-00-00', '0000-00-00'),
-	(60, 6, 1, '055/16', 30, 0, 'Aguardando Resposta', 9, NULL, '0000-00-00', '0000-00-00');
+	(53, 6, 2, '053/16', 30, 700, 'Vencida', 5, 'Proposta_053-16.pdf', '2016-01-29', '2016-02-15'),
+	(54, 5, 2, '054/16', 230, 7544, 'Aprovada', 6, 'Proposta_054-16.pdf', '2016-02-12', '2016-02-29'),
+	(55, 6, 1, '055/16', 50, 0, 'Aprovada', 10, 'Proposta_055-16.pdf', '2016-02-15', '2016-03-15');
 /*!40000 ALTER TABLE `proposta` ENABLE KEYS */;
 
 

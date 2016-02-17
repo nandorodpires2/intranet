@@ -6,4 +6,59 @@
         </div>
     </div>
     
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="faturamento_busca" id="faturamento_busca" class="form-control" placeholder="Pesquisar faturamentos" />
+                </div>
+            </form>
+        </div>
+        
+        <!-- NOVO CLIENTE MODAL -->
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-faturamento-cadastro"><i class="fa fa-plus"></i> Novo Faturamento</a>
+        </div>
+        <div class="modal fade" id="modal-faturamento-cadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Novo Faturamento</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php echo $this->partial('faturamento/form-faturamento-cadastro.phtml', array("formFaturamentoCadastro" => $this->formFaturamentoCadastro)); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM NOVO CLIENTE -->
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <?php if ($this->faturamentos->getCurrentItemCount() > 0) : ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->faturamentos as $faturamento) : ?>
+                        <tr>                            
+                            <td></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>                    
+                </table>
+                <?php echo $this->paginationControl($this->faturamentos, 'Sliding', 'partials/pagination.phtml'); ?>
+            </div>
+            <?php else : ?>
+            <div class="alert alert-warning">Nenhuma faturamento cadastrado</div>            
+            <?php endif; ?>
+        </div>
+    </div>
+    
 </section>
