@@ -14,7 +14,7 @@
 class Site_FaturamentoController extends Zend_Controller_Action {
     
     public function init() {
-        
+        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/faturamento/cadastro.js'));
     }
     
     public function indexAction() {
@@ -60,6 +60,11 @@ class Site_FaturamentoController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();            
             if ($formFaturamentoCadastro->isValid($data)) {             
+                
+                if (empty($data['projeto_id'])) {
+                    $formFaturamentoCadastro->removeElement("projeto_id");
+                }
+                
                 $data = $formFaturamentoCadastro->getValues();
                 
                 try {

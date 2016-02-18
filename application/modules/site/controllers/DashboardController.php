@@ -13,6 +13,10 @@
  */
 class Site_DashboardController extends Zend_Controller_Action {
     
+    const STATUS_AGUARDANDO_PAGAMENTO = "Aguardando pagamento";
+    const STATUS_PAGO = "Pago";
+    const STATUS_VENCIDO = "Vencido";
+    
     public function init() {
         
     }
@@ -44,17 +48,54 @@ class Site_DashboardController extends Zend_Controller_Action {
         /**
          * Total de Projetos
          */
-        $this->view->projetos = 0;
+        $modelProjeto = new Model_DbTable_Projeto();
+        $projetos = $modelProjeto->fetchAll();
+        $this->view->projetos = $projetos;
         
         /**
          * Total Faturamento
          */
-        $this->view->faturamento = 0;
+        $modelFaturamento = new Model_DbTable_Faturamento();
+        $faturamentos = $modelFaturamento->fetchAll();
+        
+        $faturamento_total = 0;
+        $receber = 0;
+        $recebido = 0;
+        foreach ($faturamentos as $faturamento) {
+            
+            if ($faturamento->faturamento_status === self::STATUS_AGUARDANDO_PAGAMENTO) {
+                $receber += $faturamento->faturamento_valor;
+            }
+            
+            if ($faturamento->faturamento_status === self::STATUS_PAGO) {
+                $recebido += $faturamento->faturamento_valor;
+            }
+            
+            $faturamento_total += $faturamento->faturamento_valor;
+            
+        }
+        
+        $this->view->faturamento_total = $faturamento_total;
+        $this->view->receber = $receber;
+        $this->view->recebido = $recebido;
         
         /**
          * Total de Horas Trbalhadas
          */
-        $this->view->horas = 0;
+        $modelControleHoras = new Model_DbTable_ControleHoras();
+        $horas = $modelControleHoras->fetchAll();
+        
+        $horas_trabalhadas = 0;
+        foreach ($horas as $hora) {
+            
+            $zendDateInicio = new Zend_Date($hora->controle_horas_data_inicio);
+            $zendDateFim = new Zend_Date($hora->controle_horas_data_fim);
+            
+            $horas_trabalhadas += $zendDateFim->sub($zendDateInicio)->get(Zend_Date::TIMESTAMP);              
+            
+        } 
+        
+        $this->view->horas = ceil($horas_trabalhadas / 3600);
         
     }
     

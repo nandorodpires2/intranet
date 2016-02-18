@@ -62,7 +62,7 @@ class Site_ProjetoController extends Zend_Controller_Action {
                 
                 $formProjetoCadastro->removeElement("cliente");
                 $data = $formProjetoCadastro->getValues();
-                            
+                
                 try {
                     $modelProjeto = new Model_DbTable_Projeto();
                     $modelProjeto->insert($data);

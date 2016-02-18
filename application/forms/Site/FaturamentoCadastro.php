@@ -51,20 +51,30 @@ class Form_Site_FaturamentoCadastro extends App_Forms_Form {
         $faturamento_descricao->setRequired();
         $faturamento_descricao->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
         
-        // faturamento_num_boleto
-        $faturamento_num_boleto = new Zend_Form_Element_Text("faturamento_num_boleto");
-        $faturamento_num_boleto->setLabel("Numero Boleto: ");
-        $faturamento_num_boleto->setAttribs(array(
+        // faturamento_nosso_numero
+        $faturamento_nosso_numero = new Zend_Form_Element_Text("faturamento_nosso_numero");
+        $faturamento_nosso_numero->setLabel("Nosso Nº: ");
+        $faturamento_nosso_numero->setAttribs(array(
             'class' => 'form-control'
         ));
-        //$faturamento_num_boleto->setRequired();
-        $faturamento_num_boleto->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        //$faturamento_nosso_numero->setRequired();
+        $faturamento_nosso_numero->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        
+        // faturamento_vencimento
+        $faturamento_vencimento = new Zend_Form_Element_Text("faturamento_vencimento");
+        $faturamento_vencimento->setLabel("Vencimento: ");
+        $faturamento_vencimento->setAttribs(array(
+            'class' => 'form-control'
+        ));
+        $faturamento_vencimento->setRequired();
+        $faturamento_vencimento->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
         
         $this->addElements(array(            
             $projeto_id,
             $cliente_id,
+            $faturamento_vencimento,
             $faturamento_valor,
-            $faturamento_num_boleto,
+            $faturamento_nosso_numero,
             $faturamento_descricao
         ));
         

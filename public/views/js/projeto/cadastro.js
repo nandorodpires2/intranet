@@ -20,6 +20,15 @@ $(document).ready(function(){
         
     });
     
+    $("#cliente").change(function(){
+       
+        var cliente = $(this).val();
+        if (cliente !== '') {
+            $("#cliente_id").val(cliente);
+        }
+        
+    });
+    
 });
 
 function enable(flag) {

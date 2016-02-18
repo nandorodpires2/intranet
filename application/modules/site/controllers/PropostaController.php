@@ -13,6 +13,11 @@
  */
 class Site_PropostaController extends Zend_Controller_Action {
     
+    const STATUS_AGUARDANDO_RESPOSTA = "Aguardando Resposta";
+    const STATUS_APROVADA = "Aprovada";
+    const STATUS_VENCIDA = "Vencida";
+    const STATUS_EXCLUIDA = "Excluída";
+    
     public function init() {
         $this->view->headScript()->appendFile($this->view->baseUrl('views/js/proposta/cadastro.js')); 
         // atualiza os status das propostas
@@ -81,24 +86,101 @@ class Site_PropostaController extends Zend_Controller_Action {
                 }
                 
                 $this->_redirect("proposta/");
-            } else {
-                Zend_Debug::dump($formPropostaCadastro->getErrors()); die();
             }
         }
         
     }
-    
+
     /**
-     * 
+     * Aprovar uma proposta 
+     */
+    public function aprovarAction() {
+        
+        $this->_helper->viewRenderer->setNoRender();
+        
+        $proposta_id = $this->getRequest()->getParam("proposta");
+        
+        if (!$proposta_id) {
+            $this->_helper->flashMessenger->addMessage(array(
+                "danger" => "Parâmetro incorreto!"
+            ));
+            $this->_redirect("proposta/");
+        }
+        
+        /**
+         * Busca dados da proposta
+         */        
+        $modelProposta = new Model_DbTable_Proposta();
+        $proposta = $modelProposta->getById($proposta_id);
+        
+        if (!$proposta) {
+            $this->_helper->flashMessenger->addMessage(array(
+                "danger" => "Proposta não encontrada!"
+            ));
+            $this->_redirect("proposta/");
+        }
+        
+        try {
+            $modelProposta->updateById(array("proposta_status" => self::STATUS_APROVADA), $proposta_id);
+            
+            $this->_helper->flashMessenger->addMessage(array(
+                'success' => 'Proposta aprovada com sucesso!'
+            ));
+            
+        } catch (Exception $ex) {
+            $this->_helper->flashMessenger->addMessage(array(
+                'danger' => $ex->getMessage()
+            ));
+        }
+        
+        $this->_redirect("proposta/");
+        
+        // possibilidade de criar o projeto automaticamente
+        
+    }
+
+    /**
+     * Editar uma proposta
      */
     public function editarAction() {
         
     }
     
     /**
+     * Excluir uma proposta (somente exclusao logica - status: Excluída)
+     */
+    public function excluirAction() {
+        
+    }
+
+    /**
      * 
      */
     public function detalhesAction() {
+        
+        $proposta_id = $this->getRequest()->getParam("proposta");
+        
+        if (!$proposta_id) {
+            $this->_helper->flashMessenger->addMessage(array(
+                "danger" => "Parâmetro incorreto!"
+            ));
+            $this->_redirect("proposta/");
+        }
+        
+        /**
+         * Busca dados da proposta
+         */        
+        $modelProposta = new Model_DbTable_Proposta();
+        $proposta = $modelProposta->getById($proposta_id);
+        
+        if (!$proposta) {
+            $this->_helper->flashMessenger->addMessage(array(
+                "danger" => "Proposta não encontrada!"
+            ));
+            $this->_redirect("proposta/");
+        }
+        
+        $this->view->proposta = $proposta;
         
     }
     
@@ -148,14 +230,14 @@ class Site_PropostaController extends Zend_Controller_Action {
         $modelProposta = new Model_DbTable_Proposta();                
         $propostas = $modelProposta->fetchAll();
         
-        $zendDateNow = new Zend_date();
+        $zendDateNow = new Zend_Date();
         
         foreach ($propostas as $proposta) {
             $zendDateVencimento = new Zend_Date($proposta->proposta_vencimento);
             
             if ($zendDateVencimento->isEarlier($zendDateNow)) {                
                 // atualiza o status
-                $update = array('proposta_status' => 'Vencida');
+                $update = array('proposta_status' => self::STATUS_VENCIDA);
                 try {
                     $modelProposta->updateById($update, $proposta->proposta_id);
                 } catch (Exception $ex) {

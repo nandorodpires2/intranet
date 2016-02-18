@@ -29,7 +29,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-bookmark"></i> Projetos</div>
                 <div class="panel-body text-right">
-                    <h4>Total de Projetos:  <?php echo $this->projetos; ?></h4>
+                    <h4>Total de Projetos:  <?php echo $this->projetos->count(); ?></h4>
                 </div>
             </div>
         </div>
@@ -39,9 +39,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-usd"></i> Faturamento</div>
                 <div class="panel-body text-right">
-                    <h4>Faturamento Total: <?php echo $this->currency($this->faturamento); ?></h4>
-                    <h5>A Receber: <?php echo $this->currency($this->faturamento); ?></h5>
-                    <h5>Recebido: <?php echo $this->currency($this->faturamento); ?></h5>
+                    <h4>Faturamento Total: <?php echo $this->currency($this->faturamento_total); ?></h4>
+                    <h5>A Receber: <?php echo $this->currency($this->receber); ?></h5>
+                    <h5>Recebido: <?php echo $this->currency($this->recebido); ?></h5>
                 </div>
             </div>
         </div>
