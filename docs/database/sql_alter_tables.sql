@@ -11,3 +11,8 @@ ALTER TABLE `projeto`
 ALTER TABLE `projeto`
 	ADD COLUMN `projeto_controle_horas` INT(11) NULL DEFAULT NULL AFTER `proposta_id`,
 	ADD INDEX `projeto_controle_horas` (`projeto_controle_horas`);
+	
+ALTER TABLE `faturamento`
+	ALTER `projeto_id` DROP DEFAULT;
+ALTER TABLE `faturamento`
+	CHANGE COLUMN `projeto_id` `projeto_id` INT(11) NULL AFTER `faturamento_status`;

@@ -59,7 +59,26 @@ class Site_FaturamentoController extends Zend_Controller_Action {
         
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();            
-            if ($formFaturamentoCadastro->isValid($data)) {
+            if ($formFaturamentoCadastro->isValid($data)) {             
+                $data = $formFaturamentoCadastro->getValues();
+                
+                try {
+                    $modelFaturamento = new Model_DbTable_Faturamento();
+                    $modelFaturamento->insert($data);
+                    
+                    $this->_helper->flashMessenger->addMessage(array(
+                        'success' => 'Faturamento cadastrado com sucesso!'
+                    ));
+                    
+                } catch (Exception $ex) {
+
+                    $this->_helper->flashMessenger->addMessage(array(
+                        'danger' => $ex->getMessage()
+                    ));
+                    
+                }
+                
+                $this->_redirect("faturamento/");
                 
             }
         }
