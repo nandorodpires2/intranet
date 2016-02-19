@@ -22,11 +22,13 @@
                 'module' => $menu->site_menu_module,
                 'controller' => $menu->site_menu_controller,
                 'action' => $menu->site_menu_action
-            ), null, true); ?>"><?php echo $menu->site_menu_label; ?></a>
+            ), null, true); ?>">
+                <i class="<?php echo $menu->site_menu_icon; ?>"></i>
+                <?php echo $menu->site_menu_label; ?>
+            </a>
         </li>
         <?php endforeach; endif; ?>
     </ul>
 </div>
 <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-<a id="menu-close" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-times"></i></a>
 <!-- /#sidebar-wrapper -->

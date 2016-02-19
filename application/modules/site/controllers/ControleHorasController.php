@@ -21,6 +21,7 @@ class Site_ControleHorasController extends Zend_Controller_Action {
     }
     
     public function indexAction() {
+        
         /**
          * Form cadastro
          */

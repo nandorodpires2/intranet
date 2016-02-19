@@ -65,24 +65,36 @@
         </div>
         <div class="col-lg-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Propostas</div>
-                <div class="panel-body">
+                <div class="panel-heading">Controle de Horas</div>
+                <div class="panel-body text-center">
+                    <h4>Total Horas Trabalhadas:</h4>
+                    <h4>55</h4>
                 </div>
-            </div><div class="panel panel-default">
-                <div class="panel-heading">Projetos</div>
+            </div>            
+            <div class="panel panel-default">
+                <div class="panel-heading">Propostas <span class="badge"><?php echo $this->propostas->count(); ?></span></div>
                 <div class="panel-body">
+                    <p><b>Aguardando resposta:</b></p>
+                    <p><b>Aprovada:</b></p>
+                    <p><b>Vencida:</b></p>
                 </div>
-            </div>
+            </div>            
         </div>
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Faturamento</div>
-                <div class="panel-body">
+                <div class="panel-body text-center">
+                    <h4>Total Faturado:</h4>
+                    <h4><?php echo $this->currency($this->total_faturado); ?></h4>
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading">Controle de Horas</div>
+                <div class="panel-heading">Projetos <span class="badge"><?php echo $this->projetos->count(); ?></span></div>
                 <div class="panel-body">
+                    <p><b>Em desenvolvimento:</b></p>
+                    <p><b>Trabalhando:</b></p>
+                    <p><b>Pausado:</b></p>
+                    <p><b>Entregue:</b></p>
                 </div>
             </div>
         </div>

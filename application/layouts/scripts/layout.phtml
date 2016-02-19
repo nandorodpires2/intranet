@@ -71,22 +71,10 @@
     
     <!-- Menu Toggle Script -->
     <script>        
-        $("#menu-toggle").hide();   
-        
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-            $("#menu-close").show();
-            $("#menu-toggle").hide();
-        });        
-        
-        // Closes the sidebar menu
-        $("#menu-close").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-            $("#menu-close").hide();
-            $("#menu-toggle").show();
-        });
+        });    
     </script>
 
 </body>

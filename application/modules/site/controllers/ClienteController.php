@@ -156,21 +156,33 @@ class Site_ClienteController extends Zend_Controller_Action {
         $cliente = $modelCliente->getById($cliente_id);
         $this->view->cliente = $cliente;
         
+        
+        $where = "cliente_id = {$cliente_id}";
         /**
          * Busca quantidade de propostas
          */
+        $modelProposta = new Model_DbTable_Proposta();
+        $propostas = $modelProposta->fetchAll($where);
+        $this->view->propostas = $propostas;
         
         /**
          * Busca quantidade de projetos
          */
+        $modelProjeto = new Model_DbTable_Projeto();
+        $projetos = $modelProjeto->fetchAll($where);
+        $this->view->projetos = $projetos;
         
         /**
          * Faturamentos
          */
+        $modelFaturamento = new Model_DbTable_Faturamento();
+        $faturamento = $modelFaturamento->getTotalFaturadoCliente($cliente_id);         
+        $this->view->total_faturado = $faturamento->total_faturado ? $faturamento->total_faturado : 0;
         
         /**
          * Total de Horas
          */
+        $modelControleHoras = new Model_DbTable_ControleHoras();
         
     }
     

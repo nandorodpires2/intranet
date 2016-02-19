@@ -180,7 +180,7 @@ class Site_PropostaController extends Zend_Controller_Action {
             $this->_redirect("proposta/");
         }
         
-        $this->view->proposta = $proposta;
+        $this->view->proposta = $proposta;               
         
     }
     
@@ -227,8 +227,9 @@ class Site_PropostaController extends Zend_Controller_Action {
     }
     
     private function atualizaStatus() {
-        $modelProposta = new Model_DbTable_Proposta();                
-        $propostas = $modelProposta->fetchAll();
+        $modelProposta = new Model_DbTable_Proposta();   
+        $where = "proposta_status = 'Aguardando resposta'";
+        $propostas = $modelProposta->fetchAll($where);
         
         $zendDateNow = new Zend_Date();
         

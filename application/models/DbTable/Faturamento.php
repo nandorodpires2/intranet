@@ -32,4 +32,12 @@ class Model_DbTable_Faturamento extends App_Db_Table_Abstract {
         return $select;
     }
     
+    public function getTotalFaturadoCliente($cliente_id) {
+        $select = parent::getQueryAll();
+        $select->columns(array("total_faturado" => new Zend_Db_Expr("sum(faturamento_valor)")));
+        $select->where("cliente_id = ?", $cliente_id);
+        
+        return $this->fetchRow($select);        
+    }
+    
 }

@@ -16,4 +16,9 @@ class Model_DbTable_ControleHoras extends App_Db_Table_Abstract {
     protected $_name = "controle_horas";
     protected $_primary = "controle_horas_id";
     
+    public function getQueryAll() {
+        $select = parent::getQueryAll();
+        return $select;
+    }
+    
 }
