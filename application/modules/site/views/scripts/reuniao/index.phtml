@@ -1,0 +1,39 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Reuniões</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="reuniao_busca" id="reuniao_busca" class="form-control" placeholder="Pesquisar reunioes" />
+                </div>
+            </form>
+        </div>
+        
+        <!-- NOVA REUNIAO MODAL -->
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-reuniao-cadastro"><i class="fa fa-plus"></i> Nova Reunião</a>
+        </div>
+        <div class="modal fade" id="modal-reuniao-cadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Nova Reunião</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php echo $this->partial('reuniao/form-reuniao-cadastro.phtml', array("formReuniãoCadastro" => $this->formReuniãoCadastro)); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM NOVA REUNIÃO -->
+        
+    </div>
+    
+</section>
