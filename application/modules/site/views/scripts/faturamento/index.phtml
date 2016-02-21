@@ -43,9 +43,9 @@
                     <thead>
                         <tr>
                             <th>Projeto/Cliente</th>
-                            <th>Nosso Nº</th>
-                            <th>Valor</th>
-                            <th>Vencimento</th>
+                            <th>Tipo</th>
+                            <th class="text-right">Valor</th>
+                            <th class="text-center">Vencimento</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -56,15 +56,15 @@
                                 <?php echo $faturamento['projeto_nome']; ?>
                                 <?php 
                                     if ($faturamento['cliente_tipo'] === "PF") {
-                                        echo "/" . $faturamento['cliente_nome'];
+                                        echo $faturamento['cliente_nome'];
                                     } else {
-                                        echo "/" . $faturamento['cliente_empresa'];
+                                        echo $faturamento['cliente_empresa'];
                                     }                                
                                 ?>
                             </td>
-                            <td><?php echo $faturamento['faturamento_nosso_numero']; ?></td>
-                            <td><?php echo $this->currency($faturamento['faturamento_valor']); ?></td>
-                            <td><?php echo App_Helper_Date::getDate($faturamento['faturamento_vencimento']); ?></td>
+                            <td><?php echo $faturamento['faturamento_tipo'] == 1 ? 'Boleto' : 'Tranferência'; ?></td>
+                            <td class="text-right"><?php echo $this->currency($faturamento['faturamento_valor']); ?></td>
+                            <td class="text-center"><?php echo App_Helper_Date::getDate($faturamento['faturamento_vencimento']); ?></td>
                             <td><?php echo $faturamento['faturamento_status']; ?></td>
                         </tr>
                         <?php endforeach; ?>

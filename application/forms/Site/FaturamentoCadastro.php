@@ -33,9 +33,22 @@ class Form_Site_FaturamentoCadastro extends App_Forms_Form {
         $cliente_id->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
         $cliente_id->setMultiOptions($this->getClientes());
                 
+        // faturamento_tipo
+        $faturamento_tipo = new Zend_Form_Element_Select("faturamento_tipo");
+        $faturamento_tipo->setLabel("Tipo: ");
+        $faturamento_tipo->setAttribs(array(
+            'class' => 'form-control'
+        ));
+        $faturamento_tipo->setRequired(false);
+        $faturamento_tipo->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        $faturamento_tipo->setMultiOptions(array(
+            1 => 'Boleto',
+            2 => 'Transferência'
+        ));
+        
         // faturamento_valor
         $faturamento_valor = new Zend_Form_Element_Text("faturamento_valor");
-        $faturamento_valor->setLabel("Valor do Boleto: ");
+        $faturamento_valor->setLabel("Valor: ");
         $faturamento_valor->setAttribs(array(
             'class' => 'form-control'
         ));
@@ -69,13 +82,31 @@ class Form_Site_FaturamentoCadastro extends App_Forms_Form {
         $faturamento_vencimento->setRequired();
         $faturamento_vencimento->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
         
+        // faturamento_nota_fiscal
+        $faturamento_nota_fiscal = new Zend_Form_Element_File("faturamento_nota_fiscal");
+        $faturamento_nota_fiscal->setLabel("Nota Fiscal:");
+        $faturamento_nota_fiscal->addDecorators(App_Forms_Decorators::$ElementDecoratorFile);
+        $faturamento_nota_fiscal->setAttribs(array(
+            'class' => 'filestyle',                      
+            'data-buttonText' => 'Selecione a Nota Fiscal',
+            'data-iconName' => 'fa fa-file'
+        ));
+        //$faturamento_nota_fiscal->setRequired();
+        $faturamento_nota_fiscal->setDestination(Zend_Registry::get('config')->notafiscal->filepath);
+        $faturamento_nota_fiscal->addValidators(array(
+            array('Extension', false, 'pdf'),
+            //array('Size', false, '100KB'),
+        ));
+        
         $this->addElements(array(            
             $projeto_id,
             $cliente_id,
+            $faturamento_tipo,
             $faturamento_vencimento,
             $faturamento_valor,
             $faturamento_nosso_numero,
-            $faturamento_descricao
+            $faturamento_descricao,
+            $faturamento_nota_fiscal
         ));
         
         parent::init();
