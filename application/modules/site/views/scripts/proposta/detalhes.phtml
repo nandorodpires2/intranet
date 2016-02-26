@@ -77,7 +77,7 @@
                     <tr>
                         <th>Documento:</th>
                         <td colspan="5">
-                            <a href="<?php echo $this->baseUrl("views/docs/propostas/" . $this->proposta->proposta_documento); ?>" target="_blank">
+                            <a href="<?php echo $this->baseUrl(Zend_Registry::get("config")->proposta->filepath . '/' . $this->proposta->proposta_documento); ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-2x"></i> <?php echo $this->proposta->proposta_documento; ?>
                             </a>
                         </td>
