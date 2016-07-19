@@ -43,20 +43,14 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Cliente</th>   
-                            <th>Tipo</th>
-                            <th>Servico</th>
-                            <th>Horas</th>
-                            <th class="text-right">Valor</th>
-                            <th>Status</th>
-                            <th></th>
+                            <th class="col-md-6">Cliente</th>   
+                            <th class="col-md-5">Projeto</th>                                                        
+                            <th class="col-md-1 text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->projetos as $projeto) : //Zend_Debug::dump($projeto); ?>
                         <tr>
-                            <td><?php echo $projeto['projeto_nome']; ?></td>                            
                             <td>
                                 <?php
                                     if ($projeto['cliente_tipo'] === 'PF') {
@@ -65,12 +59,8 @@
                                         echo $projeto['cliente_empresa'].' / '.$projeto['cliente_nome'];
                                     }
                                 ?>
-                            </td>                        
-                            <td><?php echo $projeto['proposta_tipo_nome']; ?></td>
-                            <td><?php echo $projeto['tipo_servico_nome']; ?></td>
-                            <td><?php echo $projeto['projeto_horas']; ?></td>
-                            <td class="text-right"><?php echo $this->currency($projeto['projeto_valor']); ?></td>    
-                            <td><?php echo $projeto['projeto_status']; ?></td>
+                            </td>  
+                            <td><?php echo $projeto['projeto_nome']; ?></td>                                                        
                             <td>
                                 <a href="<?php echo $this->url(array(
                                     'controller' => 'projeto',

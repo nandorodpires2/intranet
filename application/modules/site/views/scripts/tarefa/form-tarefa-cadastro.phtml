@@ -1,0 +1,13 @@
+<section>
+    <form method="post" action="<?php echo $this->url(array(
+        'controller' => 'tarefa',
+        'action' => 'cadastro'
+    ), null, true); ?>" id="form-tarefa-cadastro" enctype="multipart/form-data">
+        <div class="row">            
+            <div class="col-lg-12">
+                <?php echo $this->formTarefaCadastro; ?>
+            </div>            
+        </div>
+        <?php echo $this->formTarefaCadastro->cliente_id; ?>
+    </form>
+</section>

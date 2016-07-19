@@ -16,19 +16,20 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
     public function init() {
         
         // proposta_id
+        /*
         $proposta_id = new Zend_Form_Element_Select("proposta_id");
         $proposta_id->setLabel("Proposta: ");
         $proposta_id->setAttribs(array(
             'class' => 'form-control'
         ));
         $proposta_id->setMultiOptions($this->getPropostas());
+        */
         
         // cliente
         $cliente = new Zend_Form_Element_Select("cliente");
         $cliente->setLabel("Cliente: ");
         $cliente->setAttribs(array(
             'class' => 'form-control',
-            'disabled' => true
         ));
         $cliente->setRequired(false);
         $cliente->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
@@ -47,6 +48,7 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
         $projeto_nome->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
         
         // projeto_horas
+        /*
         $projeto_horas = new Zend_Form_Element_Text("projeto_horas");
         $projeto_horas->setLabel("Horas: ");
         $projeto_horas->setAttribs(array(
@@ -55,8 +57,10 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
         ));
         $projeto_horas->setRequired();
         $projeto_horas->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        */
         
         // projeto_valor
+        /*
         $projeto_valor = new Zend_Form_Element_Text("projeto_valor");
         $projeto_valor->setLabel("Valor: ");
         $projeto_valor->setAttribs(array(
@@ -65,17 +69,18 @@ class Form_Site_ProjetoCadastro extends App_Forms_Form {
         ));
         $projeto_valor->setRequired();
         $projeto_valor->setDecorators(App_Forms_Decorators::$checkboxElementDecorators);
+        */
         
         /**
          * Add Elements
          */
         $this->addElements(array(
-            $proposta_id,    
+            //$proposta_id,    
             $cliente,
             $cliente_id,
             $projeto_nome,
-            $projeto_horas,
-            $projeto_valor
+            //$projeto_horas,
+            //$projeto_valor
         ));
         
         parent::init();

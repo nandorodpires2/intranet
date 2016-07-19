@@ -26,19 +26,28 @@ class Model_DbTable_Projeto extends App_Db_Table_Abstract {
             "cliente_email"
         ));
         
-        $select->joinLeft(array("proposta"), "projeto.proposta_id = proposta.proposta_id", array(
-            "proposta_numero"
-        ));
-        
-        $select->joinLeft(array("proposta_tipo"), "proposta.proposta_tipo_id = proposta_tipo.proposta_tipo_id", array(
-            "proposta_tipo_nome"
-        ));
-        
-        $select->joinLeft(array("tipo_servico"), "proposta.tipo_servico_id = tipo_servico.tipo_servico_id", array(
-            "tipo_servico_nome"
-        ));
-        
         return $select;
+    }
+    
+    public function fetchPairs() {
+        
+        $options = array('Selecione o projeto...');
+        
+        $select = $this->getQueryAll();
+        $select->order("cliente_empresa asc");
+        $select->order("cliente_nome asc");
+        
+        $projetos = $this->fetchAll($select);
+        
+        foreach ($projetos as $projeto) {
+            
+            $cliente = $projeto->cliente_empresa ? $projeto->cliente_empresa : $projeto->cliente_nome;
+            
+            $options[$projeto->projeto_id] = $cliente . " -> " . $projeto->projeto_nome;
+        }
+        
+        return $options;
+        
     }
     
 }

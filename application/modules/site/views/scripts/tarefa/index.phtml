@@ -1,0 +1,53 @@
+<section>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Tarefas</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="get">
+                <div class="form-group">
+                    <input type="text" name="tarefa_busca" id="tarefa_busca" class="form-control" placeholder="Pesquisar tarefas" />
+                </div>
+            </form>
+        </div>
+        
+        <!-- NOVO CLIENTE MODAL -->
+        <div class="col-lg-6 text-right">
+            <a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-tarefa-cadastro"><i class="fa fa-plus"></i> Novo Tarefa</a>
+        </div>
+        <div class="modal fade" id="modal-tarefa-cadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Novo Tarefa</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php echo $this->partial('tarefa/form-tarefa-cadastro.phtml', array("formTarefaCadastro" => $this->formTarefaCadastro)); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM NOVO CLIENTE -->
+    </div>
+    
+    <!-- LISTA DE PROJETOS -->
+    <div class="row">
+        <div class="col-lg-12">
+            <?php if (1 == 0) : ?>
+            <?php //if ($this->tarefas->getCurrentItemCount() > 0) : ?>
+            <div class="table-responsive">
+                
+                <?php echo $this->paginationControl($this->tarefas, 'Sliding', 'partials/pagination.phtml'); ?>
+            </div>
+            <?php else : ?>
+            <div class="alert alert-warning">Nenhuma tarefa cadastrado</div>            
+            <?php endif; ?>
+        </div>
+    </div>
+    
+</section>
